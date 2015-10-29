@@ -1,5 +1,6 @@
 package com.example.gemini.firstapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
         // generate a random number
         Random generator = new Random();
-        int randomNumber = generator.nextInt(100);
+        final int randomNumber = generator.nextInt(101);
 
         final TextView firstTextView = (TextView) findViewById(R.id.textView);
         Button firstButton = (Button) findViewById(R.id.firstButton);
-        EditText
 
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,21 +36,23 @@ public class MainActivity extends AppCompatActivity {
                 EditText input = (EditText) findViewById(R.id.editText);
                 int guessNumber = Integer.parseInt(input.getText().toString());
                 if (guessNumber == randomNumber) {
-                    firstTextView.setText("You Clicked");
+                    firstTextView.setText("Correct!");
+                    recreate();
                 }
-
-
+                else if (guessNumber < 0 || guessNumber > 100) {
+                    firstTextView.setText("Wrong input!");
+                }
+                else if (guessNumber < randomNumber) {
+                    firstTextView.setText("Higher");
+                }
+                else if (guessNumber > randomNumber) {
+                    firstTextView.setText("Lower");
+                }
+                input.setText("");
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
