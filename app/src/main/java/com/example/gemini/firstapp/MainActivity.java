@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
                 int guessNumber = Integer.parseInt(input.getText().toString());
                 if (guessNumber == randomNumber) {
                     firstTextView.setText("Correct!");
+                    try {
+                        Thread.sleep(3000);
+                    } catch(InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
                     recreate();
                 }
                 else if (guessNumber < 0 || guessNumber > 100) {
