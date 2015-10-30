@@ -27,22 +27,19 @@ public class MainActivity extends AppCompatActivity {
         Random generator = new Random();
         final int randomNumber = generator.nextInt(101);
 
+
         final TextView firstTextView = (TextView) findViewById(R.id.textView);
         Button firstButton = (Button) findViewById(R.id.firstButton);
 
         firstButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean correctTrue = false;
                 EditText input = (EditText) findViewById(R.id.editText);
                 int guessNumber = Integer.parseInt(input.getText().toString());
                 if (guessNumber == randomNumber) {
                     firstTextView.setText("Correct!");
-                    try {
-                        Thread.sleep(3000);
-                    } catch(InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-                    recreate();
+                    correctTrue = true;
                 }
                 else if (guessNumber < 0 || guessNumber > 100) {
                     firstTextView.setText("Wrong input!");
@@ -54,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
                     firstTextView.setText("Lower");
                 }
                 input.setText("");
+                if (correctTrue == true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch(InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+                    recreate();
+                }
             }
         });
 
